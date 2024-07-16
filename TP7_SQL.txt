@@ -1,0 +1,146 @@
+SQL> @TP7_SQL
+SP2-0310: unable to open file "TP7_SQL.sql"
+
+SQL> @exemple1.sql
+create table projet1
+  
+
+SQL> desc employe1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ MATRICULE                                 NOT NULL NUMBER(3)
+ ENOM                                      NOT NULL CHAR(15)
+ SALAIRE                                   NOT NULL NUMBER(7,2)
+ AGE                                       NOT NULL NUMBER(2)
+
+SQL> desc projet1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PCODE                                     NOT NULL NUMBER(3)
+ TITRE                                     NOT NULL CHAR(15)
+ DEPT_RESP                                 NOT NULL NUMBER(3)
+ BUDGET                                    NOT NULL NUMBER(7,2)
+ STATUT                                    NOT NULL NUMBER(3)
+
+
+
+SQL> desc projet
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NUM_PROJET                                NOT NULL NUMBER(38)
+ NOM_PROJET                                         VARCHAR2(255)
+ DESCRIPTION_PROJET                                 VARCHAR2(255)
+ MONTANT_ESTIME                                     FLOAT(126)
+ DATE_DEBUT                                         DATE
+ DATE_FIN                                           DATE
+
+
+
+SQL> desc desc_tac1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TCODE                                     NOT NULL NUMBER(3)
+ FONCTION                                  NOT NULL CHAR(15)
+
+SQL> desc tache1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TCODE                                     NOT NULL NUMBER(3)
+ MATRICULE                                 NOT NULL NUMBER(3)
+ PCODE                                     NOT NULL NUMBER(3)
+ DUREE                                     NOT NULL NUMBER(3)
+
+SQL> exit
+
+SQL> @selection.sql
+
+ MATRICULE ENOM               SALAIRE        AGE                                
+---------- --------------- ---------- ----------                                
+       101 Tremblay             55000         46                                
+       102 Bouchard             34345         25                                
+       103 Allard               37000         34                                
+       109 BOILY L              18000         21                                
+
+
+     PCODE TITRE            DEPT_RESP     BUDGET     STATUT                     
+---------- --------------- ---------- ---------- ----------                     
+       101 'dubbing'               12      12100          0                     
+       102 'LSQ'                   12      90750          0                     
+       103 'simulateur'            13      42350          1                     
+
+
+     PCODE TITRE           ENOM                                                 
+---------- --------------- ---------------                                      
+       101 'dubbing'       Tremblay                                             
+       102 'LSQ'           Tremblay                                             
+       102 'LSQ'           Tremblay                                             
+       103 'simulateur'    Tremblay                                             
+       103 'simulateur'    Tremblay                                             
+
+
+TITRE           ENOM                                                            
+--------------- ---------------                                                 
+'simulateur'    Bouchard                                                        
+
+SQL> @insertion.sql
+insert into employe1 values (109, 'BOILY L', 18000, 21)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (TRD151011.SYS_C00769704) violated 
+
+
+
+ MATRICULE ENOM               SALAIRE        AGE                                
+---------- --------------- ---------- ----------                                
+       101 Tremblay             55000         46                                
+       102 Bouchard             34345         25                                
+       103 Allard               37000         34                                
+       109 BOILY L              18000         21                                
+
+SQL> @modif.sql
+
+3 rows updated.
+
+
+     PCODE TITRE            DEPT_RESP     BUDGET     STATUT                     
+---------- --------------- ---------- ---------- ----------                     
+       101 'dubbing'               12      13310          0                     
+       102 'LSQ'                   12      99825          0                     
+       102 'LSQ'                   12      99825          0                     
+       103 'simulateur'            13      46585          1                     
+       103 'simulateur'            13      46585          1                     
+
+
+     PCODE TITRE            DEPT_RESP     BUDGET     STATUT                     
+---------- --------------- ---------- ---------- ----------                     
+       101 'dubbing'               12      13310          0                     
+       102 'LSQ'                   12      99825          0                     
+       103 'simulateur'            13      46585          1                     
+
+SQL> @cancelle.sql
+
+0 rows deleted.
+
+
+1 row deleted.
+
+
+ MATRICULE ENOM               SALAIRE        AGE                                
+---------- --------------- ---------- ----------                                
+       101 Tremblay             55000         46                                
+       102 Bouchard             34345         25                                
+       109 BOILY L              18000         21                                
+
+
+     TCODE  MATRICULE      PCODE      DUREE                                     
+---------- ---------- ---------- ----------                                     
+         1        101        101         20                                     
+         2        101        102         70                                     
+         1        101        102         10                                     
+         3        102        103         25                                     
+         1        101        103          5                                     
+         2        101        103         15                                     
+
+6 rows selected.
+
+SQL> spool off
